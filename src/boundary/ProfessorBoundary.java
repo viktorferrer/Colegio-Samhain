@@ -4,9 +4,12 @@ import java.util.Optional;
 
 import control.ProfessorControl;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,7 +25,7 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
     TextField tfNome = new TextField();
     TextField tfSala = new TextField();
     TextField tfTurno = new TextField();
-    TextField tfEspec = new TextField();
+    ComboBox<String> cbEspec = new ComboBox<>();
 
     Label lbId = new Label("ID: ");
     Label lbNome = new Label("Nome: ");
@@ -41,15 +44,15 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
 
     @Override
     public Pane geraTela() {
-    	
+
         vincular();
-        
+
         AnchorPane professor = new AnchorPane();
         professor.setPrefHeight(400.0);
         professor.setPrefWidth(800.0);
         professor.setLayoutY(50);
-        professor.setStyle("-fx-background-color: #E4E4DC;");	
-        
+        professor.setStyle("-fx-background-color: #E4E4DC;");
+
         lbNome.setLayoutX(20);
         lbNome.setLayoutY(23);
         lbNome.setPrefHeight(23);
@@ -59,27 +62,31 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
         tfNome.setLayoutY(43);
         tfNome.setPrefHeight(25);
         tfNome.setPrefWidth(224);
-         
+
         lbEspec.setLayoutX(288);
         lbEspec.setLayoutY(23);
         lbEspec.setPrefHeight(23);
         lbEspec.setPrefWidth(110);
-        
-        tfEspec.setLayoutX(288);
-        tfEspec.setLayoutY(43);
-        tfEspec.setPrefHeight(25);
-        tfEspec.setPrefWidth(224);
-  
+
+        cbEspec.setLayoutX(288);
+        cbEspec.setLayoutY(43);
+        cbEspec.setPrefHeight(25);
+        cbEspec.setPrefWidth(224);
+        ObservableList<String> espec = FXCollections.observableArrayList("1", "2");
+        cbEspec.setItems(espec);
+
         lbId.setLayoutX(556);
         lbId.setLayoutY(23);
         lbId.setPrefHeight(25);
         lbId.setPrefWidth(45);
-        
+
         tfId.setLayoutX(556);
         tfId.setLayoutY(43);
         tfId.setPrefHeight(25);
-        tfId.setPrefWidth(224);       
-        
+        tfId.setPrefWidth(224);
+        tfId.setEditable(false);
+        tfId.setDisable(true);
+
         lbSala.setLayoutX(20);
         lbSala.setLayoutY(75);
         lbSala.setPrefHeight(25);
@@ -99,7 +106,7 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
         tfTurno.setLayoutY(96);
         tfTurno.setPrefHeight(25);
         tfTurno.setPrefWidth(224);
-                
+
         btnGravar.setLayoutX(82);
         btnGravar.setLayoutY(152);
         btnGravar.setPrefHeight(21);
@@ -157,10 +164,10 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
         if (getTable().getColumns().size() == 0) {
             geraTabela();
         }
-        
+
         professor.getChildren().addAll(tfId,
                 tfNome,
-                tfEspec,
+                cbEspec,
                 tfSala,
                 tfTurno,
                 lbId,
@@ -171,16 +178,16 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
                 btnGravar,
                 btnAtualizar,
                 btnRemover,
-                btnBuscar, 
+                btnBuscar,
                 tabela);
 
         return professor;
     }
 
     public void geraTabela() {
-    	
+
         control.listar();
-        
+
         TableColumn<Professor, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<Professor, String>("nome"));
 
@@ -194,18 +201,18 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
         colEspec.setCellValueFactory(new PropertyValueFactory<Professor, String>("espec"));
 
         tabela.getColumns().addAll(colNome, colTurno, colSala, colEspec);
-        
+
         tabela.setItems(control.getListProf());
 
         tabela.getSelectionModel().selectedItemProperty().addListener((obs, older, newer) -> {
             if (newer != null) {
                 control.setProfessor(newer);
-            } 
+            }
         });
 
         tabela.setLayoutY(180);
         tabela.setPrefWidth(800);
-        tabela.setPrefHeight(220);    	
+        tabela.setPrefHeight(220);
     }
 
     public TableView<Professor> getTable() {
@@ -215,7 +222,7 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
     private void vincular() {
         Bindings.bindBidirectional(tfId.textProperty(), control.idProperty());
         Bindings.bindBidirectional(tfNome.textProperty(), control.nomeProperty());
-        Bindings.bindBidirectional(tfEspec.textProperty(), control.especProperty());
+        Bindings.bindBidirectional(cbEspec.valueProperty(), control.especProperty());
         Bindings.bindBidirectional(tfSala.textProperty(), control.salaProperty());
         Bindings.bindBidirectional(tfTurno.textProperty(), control.turnoProperty());
     }

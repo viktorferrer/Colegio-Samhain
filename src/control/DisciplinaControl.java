@@ -1,7 +1,5 @@
 package control;
 
-import org.bson.types.ObjectId;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -43,11 +41,11 @@ public class DisciplinaControl {
         return profId;
     }
 
-    public ObservableList<Disciplina> getListDisc(){
+    public ObservableList<Disciplina> getListDisc() {
         return listDisc;
     }
 
-    public Disciplina getDisc(){
+    public Disciplina getDisc() {
         Disciplina d = new Disciplina(descricaoProperty().getValue());
         d.setPeriodo(periodoProperty().getValue());
         d.setModalidade(modalidadeProperty().getValue());
@@ -56,8 +54,8 @@ public class DisciplinaControl {
 
         return d;
     }
-    
-    public void setDisc(Disciplina d){
+
+    public void setDisc(Disciplina d) {
         descricao.set(d.getDescricao());
         periodo.set(d.getPeriodo());
         modalidade.set(d.getModalidade());
@@ -65,36 +63,37 @@ public class DisciplinaControl {
         profId.set(d.getProfId().toString());
     }
 
-    public void gravar(){
+    public void gravar() {
         Disciplina d = getDisc();
         dao.adicionar(d);
         System.out.println("Disciplina adicionada!");
-        limparCampos();   
+        listar();
+        limparCampos();
     }
 
-    public void atualizar(){
+    public void atualizar() {
         dao.atualizar(idProperty().getValue(), getDisc());
         listar();
         limparCampos();
     }
 
-    public void buscar(){
+    public void buscar() {
         listDisc.clear();
         listDisc.addAll(dao.pesquisarPorCampo("descricao", descricaoProperty().getValue()));
     }
 
-    public void deletar(){
+    public void deletar() {
         dao.remover(idProperty().getValue());
         listar();
         limparCampos();
     }
 
-    public void listar(){
+    public void listar() {
         listDisc.clear();
         listDisc.addAll(dao.mostrarDisciplinas());
     }
 
-    public void limparCampos(){
+    public void limparCampos() {
         descricao.set("");
         periodo.set("");
         modalidade.set("");

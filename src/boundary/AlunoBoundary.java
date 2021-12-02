@@ -1,6 +1,5 @@
 package boundary;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import control.AlunoControl;
@@ -82,7 +81,9 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
         tfId.setLayoutX(556);
         tfId.setLayoutY(43);
         tfId.setPrefHeight(25);
-        tfId.setPrefWidth(224);
+        tfId.setPrefWidth(224); 
+        tfId.setEditable(false);
+        tfId.setDisable(true);  
 
         lbPeriodo.setLayoutX(20);
         lbPeriodo.setLayoutY(75);

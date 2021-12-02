@@ -34,7 +34,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
     Professor novoProf(Document doc) {
         Professor p = new Professor(doc.getString("nome"));
-        p.setSala(doc.getString("periodo"));
+        p.setSala(doc.getString("sala"));
         p.setTurno(doc.getString("turno"));
         p.setEspec(doc.getString("espec"));
         p.setId(doc.getObjectId("_id"));
@@ -58,8 +58,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     @Override
     public void atualizar(String id, Professor professor) {
         Document doc = novoDocumento(professor);
-
         BasicDBObject update = new BasicDBObject("$set", doc);
+        System.out.println(update);
         getCollection();
         prof.updateOne(new BasicDBObject("_id", new ObjectId(id)), update);
     }
@@ -96,6 +96,22 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             cursor.close();
         }
         return pesquisa;
+    }
+
+    @Override
+    public String nomeProfessor(String id) {
+        Document parametro = new Document();
+        getCollection();
+        try {
+            parametro = prof.find(new Document("_id", (new ObjectId(id)))).first();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (parametro == null) {
+            return null;
+        }
+
+        return parametro.getString("nome");
     }
 
 }

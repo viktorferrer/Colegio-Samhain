@@ -1,15 +1,16 @@
 package control;
 
-import model.bean.Aluno;
-import model.dao.AlunoDAO;
-import model.dao.AlunoDAOImpl;
 import org.bson.types.ObjectId;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.bean.Aluno;
+import model.dao.AlunoDAO;
+import model.dao.AlunoDAOImpl;
 
 public class AlunoControl {
 
@@ -48,7 +49,7 @@ public class AlunoControl {
         return nota;
     }
 
-    public ObservableList<Aluno> getListAlunos(){
+    public ObservableList<Aluno> getListAlunos() {
         return listAluno;
     }
 
@@ -78,13 +79,13 @@ public class AlunoControl {
 
     public void gravar() {
         Aluno a = getAluno();
-        // if (aDao.pesquisarPorMatricula(matriculaProperty().getValue()) == null) {
+        if (aDao.pesquisarPorMatricula(matriculaProperty().getValue()) == null) {
             aDao.adicionar(a);
             limparCampos();
-        // } else {
-        //     System.out.println("Matrícula indisponível. Por favor, informe outro registro.");
-        //     matricula.set("");
-        // }
+        } else {
+            System.out.println("Matrícula indisponível. Por favor, informe outro registro.");
+            matricula.set("");
+        }
         listar();
     }
 
@@ -105,7 +106,6 @@ public class AlunoControl {
         limparCampos();
     }
 
-    
     public void listar() {
         listAluno.clear();
         listAluno.addAll(aDao.mostrarAlunos());

@@ -35,6 +35,7 @@ public class Aluno {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public Double getNota() {
         return nota;
     }
@@ -54,7 +55,7 @@ public class Aluno {
     public String getPeriodo() {
         return periodo;
     }
-    
+
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }

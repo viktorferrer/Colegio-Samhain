@@ -1,7 +1,5 @@
 package control;
 
-import javax.swing.text.Document;
-
 import org.bson.types.ObjectId;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -43,7 +41,7 @@ public class ProfessorControl {
         return espec;
     }
 
-    public ObservableList<Professor> getListProf(){
+    public ObservableList<Professor> getListProf() {
         return listProf;
     }
 
@@ -71,26 +69,31 @@ public class ProfessorControl {
     }
 
     public void gravar() {
-    Professor p = getProf();
-    pDao.adicionar(p);
-    listar();
+        Professor p = getProf();
+        pDao.adicionar(p);
+        listar();
     }
 
     public void atualizar() {
+        System.out.println(getProf().getNome() + idProperty().getValue());
         pDao.atualizar(idProperty().getValue(), getProf());
-        listar();
         limparCampos();
+        listar();
     }
 
     public void deletar() {
         pDao.remover(idProperty().getValue());
-        listar();
         limparCampos();
+        listar();
     }
 
     public void buscar() {
         listProf.clear();
-        listProf.addAll(pDao.pesquisarPorCampo("", ""));
+        listProf.addAll(pDao.pesquisarPorCampo("nome", nomeProperty().getValue()));
+    }
+
+    public void nomeProf() {
+        pDao.nomeProfessor(idProperty().getValue());
     }
 
     public void listar() {

@@ -2,25 +2,25 @@ package control;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.dao.UsuarioDAO;
+import model.dao.UsuarioDAOImpl;
 
 public class LoginControl {
 
-    StringProperty email = new SimpleStringProperty("");
+    StringProperty user = new SimpleStringProperty("");
     StringProperty senha = new SimpleStringProperty("");
 
-    // LoginDAO lDAO = new LoginDAO();
+    UsuarioDAO uDao = new UsuarioDAOImpl();
 
-    public String login() {
-        String email = emailProperty().getValue();
+    public int login() {
+        String user = userProperty().getValue();
         String senha = senhaProperty().getValue();
-
-        // return lDAO.findPerfilUser(email, senha);
-
-        return "diretor";
+        System.out.println(user + senha);
+        return uDao.login(user, senha);
     }
 
-    public StringProperty emailProperty() {
-        return email;
+    public StringProperty userProperty() {
+        return user;
     }
 
     public StringProperty senhaProperty() {

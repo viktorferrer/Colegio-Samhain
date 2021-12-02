@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import model.bean.Aluno;
 import model.bean.Disciplina;
 
 public class DisciplinaBoundary extends CommandProducer implements StrategyBoundary {
@@ -28,7 +27,7 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
     Label lbDescricao = new Label("Descrição:");
     Label lbPeriodo = new Label("Periodo:");
     Label lbModalidade = new Label("Modalidade:");
-    Label lbId = new Label("Id:");
+    Label lbId = new Label("ID:");
     Label lbProfId = new Label("Professor:");
 
     Button btnGravar = new Button("Gravar");
@@ -42,15 +41,15 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
 
     @Override
     public Pane geraTela() {
-    	
+
         vincular();
 
         AnchorPane disciplina = new AnchorPane();
-        
+
         disciplina.setPrefHeight(400.0);
         disciplina.setPrefWidth(800.0);
         disciplina.setLayoutY(50);
-        disciplina.setStyle("-fx-background-color: #E4E4DC;");	
+        disciplina.setStyle("-fx-background-color: #E4E4DC;");
 
         lbDescricao.setLayoutX(20);
         lbDescricao.setLayoutY(23);
@@ -72,15 +71,17 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         tfPeriodo.setPrefHeight(25);
         tfPeriodo.setPrefWidth(224);
 
-        lbModalidade.setLayoutX(556);
-        lbModalidade.setLayoutY(23);
-        lbModalidade.setPrefHeight(25);
-        lbModalidade.setPrefWidth(120);
+        lbId.setLayoutX(556);
+        lbId.setLayoutY(23);
+        lbId.setPrefHeight(25);
+        lbId.setPrefWidth(120);
 
-        tfModalidade.setLayoutX(556);
-        tfModalidade.setLayoutY(43);
-        tfModalidade.setPrefHeight(25);
-        tfModalidade.setPrefWidth(224);
+        tfId.setLayoutX(556);
+        tfId.setLayoutY(43);
+        tfId.setPrefHeight(25);
+        tfId.setPrefWidth(224);
+        tfId.setEditable(false);
+        tfId.setDisable(true);
 
         lbProfId.setLayoutX(20);
         lbProfId.setLayoutY(75);
@@ -92,15 +93,15 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         tfProfId.setPrefHeight(25);
         tfProfId.setPrefWidth(224);
 
-        lbId.setLayoutX(288);
-        lbId.setLayoutY(75);
-        lbId.setPrefHeight(25);
-        lbId.setPrefWidth(50);
+        lbModalidade.setLayoutX(288);
+        lbModalidade.setLayoutY(75);
+        lbModalidade.setPrefHeight(25);
+        lbModalidade.setPrefWidth(60);
 
-        tfId.setLayoutX(288);
-        tfId.setLayoutY(96);
-        tfId.setPrefHeight(25);
-        tfId.setPrefWidth(50);
+        tfModalidade.setLayoutX(288);
+        tfModalidade.setLayoutY(96);
+        tfModalidade.setPrefHeight(25);
+        tfModalidade.setPrefWidth(224);
 
         btnGravar.setLayoutX(82);
         btnGravar.setLayoutY(152);
@@ -155,7 +156,7 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         btnLimpar.setOnAction((e) -> {
             control.limparCampos();
         });
-        
+
         if (getTable().getColumns().size() == 0) {
             geraTabela();
         }
@@ -176,13 +177,13 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
                 btnRemover,
                 btnLimpar,
                 tabela);
-        
+
         return disciplina;
     }
 
     public void geraTabela() {
         control.listar();
-        
+
         TableColumn<Disciplina, String> colDescricao = new TableColumn<>("Descrição");
         colDescricao.setCellValueFactory(new PropertyValueFactory<Disciplina, String>("descricao"));
 
@@ -196,31 +197,30 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         colProfessor.setCellValueFactory(new PropertyValueFactory<Disciplina, String>("profId"));
 
         tabela.getColumns().addAll(colDescricao, colPeriodo, colModalidade, colProfessor);
-        
+
         tabela.setItems(control.getListDisc());
 
         tabela.getSelectionModel().selectedItemProperty().addListener((obs, older, newer) -> {
             if (newer != null) {
                 control.setDisc(newer);
-            } 
+            }
         });
 
         tabela.setLayoutY(180);
         tabela.setPrefWidth(800);
-        tabela.setPrefHeight(220);    	
+        tabela.setPrefHeight(220);
     }
 
-    public TableView<Disciplina> getTable(){
+    public TableView<Disciplina> getTable() {
         return tabela;
     }
 
-    private void vincular(){
+    private void vincular() {
         Bindings.bindBidirectional(tfDescricao.textProperty(), control.descricaoProperty());
         Bindings.bindBidirectional(tfPeriodo.textProperty(), control.periodoProperty());
         Bindings.bindBidirectional(tfModalidade.textProperty(), control.modalidadeProperty());
         Bindings.bindBidirectional(tfId.textProperty(), control.idProperty());
         Bindings.bindBidirectional(tfProfId.textProperty(), control.profIdProperty());
     }
-
 
 }

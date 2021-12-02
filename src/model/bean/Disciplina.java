@@ -22,7 +22,7 @@ public class Disciplina {
     public String getDescricao() {
         return descricao;
     }
-    
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -51,8 +51,4 @@ public class Disciplina {
         this.id = id;
     }
 
-    
-
-
-    
 }

@@ -10,5 +10,6 @@ public interface ProfessorDAO {
     void remover (String id);
     void atualizar (String id, Professor professor);
     List<Professor>mostrarProfs();
-    List<Professor> pesquisarPorCampo(String campo, String valor);    
+    List<Professor> pesquisarPorCampo(String campo, String valor);  
+    String nomeProfessor(String id); 
 }
