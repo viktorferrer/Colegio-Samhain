@@ -2,8 +2,10 @@ package boundary;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.layout.Pane;
 
 public abstract class CommandProducer {
+	
     private List<CommandExecution> executionList = new ArrayList<>();
 
     public void addExecution(CommandExecution exe) {
@@ -14,9 +16,10 @@ public abstract class CommandProducer {
         executionList.remove(exe);
     }
 
-    public void executeCommand(String command) {
+    public void executeCommand(Pane top, Pane left) {
         for (CommandExecution exe : executionList) {
-            exe.execute(command);
+            exe.execute(top, left);
         }
     }
+    
 }

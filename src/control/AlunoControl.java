@@ -3,9 +3,6 @@ package control;
 import model.bean.Aluno;
 import model.dao.AlunoDAO;
 import model.dao.AlunoDAOImpl;
-
-import java.util.zip.Adler32;
-
 import org.bson.types.ObjectId;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -81,14 +78,13 @@ public class AlunoControl {
 
     public void gravar() {
         Aluno a = getAluno();
-        if (aDao.pesquisarPorMatricula(matriculaProperty().getValue()) == null) {
+        // if (aDao.pesquisarPorMatricula(matriculaProperty().getValue()) == null) {
             aDao.adicionar(a);
-            System.out.println("Usuário criado!");
             limparCampos();
-        } else {
-            System.out.println("Matrícula indisponível. Por favor, informe outro registro.");
-            matricula.set("");
-        }
+        // } else {
+        //     System.out.println("Matrícula indisponível. Por favor, informe outro registro.");
+        //     matricula.set("");
+        // }
         listar();
     }
 

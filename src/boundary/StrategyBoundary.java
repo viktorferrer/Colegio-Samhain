@@ -2,6 +2,6 @@ package boundary;
 
 import javafx.scene.layout.Pane;
 
-public interface StratregyBoundary {
+public interface StrategyBoundary {
     Pane geraTela();
 }

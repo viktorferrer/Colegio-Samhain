@@ -14,7 +14,7 @@ import org.bson.types.ObjectId;
 import model.bean.Professor;
 import utilities.ConnectDB;
 
-public class ProfessorDaoImpl implements ProfessorDAO {
+public class ProfessorDAOImpl implements ProfessorDAO {
 
     MongoCollection<Document> prof;
 

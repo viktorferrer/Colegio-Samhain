@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.converter.NumberStringConverter;
 import model.bean.Aluno;
 
-public class AlunoBoundary extends CommandProducer implements StratregyBoundary {
+public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
 
     TextField tfId = new TextField();
     TextField tfNome = new TextField();
@@ -27,7 +27,7 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
     TextField tfMatricula = new TextField();
     TextField tfNota = new TextField();
 
-    Label lbId = new Label("Id: ");
+    Label lbId = new Label("ID: ");
     Label lbNome = new Label("Nome: ");
     Label lbTurma = new Label("Turma: ");
     Label lbPeriodo = new Label("Periodo: ");
@@ -49,15 +49,15 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
         bind();
 
         AnchorPane aPane = new AnchorPane();
-        // altura
         aPane.setPrefHeight(400);
-        // largura
         aPane.setPrefWidth(800);
+        aPane.setLayoutY(50);
+        aPane.setStyle("-fx-background-color: #E4E4DC");
 
         lbNome.setLayoutX(20);
         lbNome.setLayoutY(23);
         lbNome.setPrefHeight(23);
-        lbNome.setPrefWidth(45);
+        lbNome.setPrefWidth(65);
 
         tfNome.setLayoutX(20);
         tfNome.setLayoutY(43);
@@ -67,7 +67,7 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
         lbMatricula.setLayoutX(288);
         lbMatricula.setLayoutY(23);
         lbMatricula.setPrefHeight(23);
-        lbMatricula.setPrefWidth(60);
+        lbMatricula.setPrefWidth(110);
 
         tfMatricula.setLayoutX(288);
         tfMatricula.setLayoutY(43);
@@ -77,7 +77,7 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
         lbId.setLayoutX(556);
         lbId.setLayoutY(23);
         lbId.setPrefHeight(25);
-        lbId.setPrefWidth(20);
+        lbId.setPrefWidth(45);
 
         tfId.setLayoutX(556);
         tfId.setLayoutY(43);
@@ -87,7 +87,7 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
         lbPeriodo.setLayoutX(20);
         lbPeriodo.setLayoutY(75);
         lbPeriodo.setPrefHeight(25);
-        lbPeriodo.setPrefWidth(50);
+        lbPeriodo.setPrefWidth(100);
 
         tfPeriodo.setLayoutX(20);
         tfPeriodo.setLayoutY(96);
@@ -97,7 +97,7 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
         lbTurma.setLayoutX(288);
         lbTurma.setLayoutY(75);
         lbTurma.setPrefHeight(25);
-        lbTurma.setPrefWidth(50);
+        lbTurma.setPrefWidth(70);
 
         tfTurma.setLayoutX(288);
         tfTurma.setLayoutY(96);
@@ -107,7 +107,7 @@ public class AlunoBoundary extends CommandProducer implements StratregyBoundary 
         lbNota.setLayoutX(556);
         lbNota.setLayoutY(75);
         lbNota.setPrefHeight(25);
-        lbNota.setPrefWidth(20);
+        lbNota.setPrefWidth(70);
 
         tfNota.setLayoutX(556);
         tfNota.setLayoutY(96);

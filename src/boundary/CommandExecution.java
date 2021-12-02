@@ -1,5 +1,7 @@
 package boundary;
 
+import javafx.scene.layout.Pane;
+
 public interface CommandExecution {
-    void execute(String command);
+    void execute(Pane top, Pane left);
 }
