@@ -39,23 +39,23 @@ public class LoginBoundary extends CommandProducer implements StrategyBoundary {
 		  lblTituto.setPrefWidth(600);
 		  lblTituto.setStyle("-fx-text-alignment: center; -fx-text-fill: #6F9580; -fx-font-weight: bold; -fx-font-size: 55px;");
 		  
-		  lblEmail.setLayoutX(250);
-		  lblEmail.setLayoutY(171);
+		  lblEmail.setLayoutX(250.0);
+		  lblEmail.setLayoutY(135.5);
 		  lblEmail.setPrefWidth(150);
 		  lblEmail.setStyle("-fx-text-alignment: center; -fx-text-fill: #6F9580; -fx-font-weight: bold; -fx-font-size: 18px;");
 		  
 		  tfEmail.setLayoutX(250.0);
-		  tfEmail.setLayoutY(201.0);
+		  tfEmail.setLayoutY(170.0);
 		  tfEmail.setMinSize(300.0, 30.0);
 		  tfEmail.setStyle("-fx-border-color: #000000;");
 		  
 		  lblSenha.setLayoutX(250);
-		  lblSenha.setLayoutY(260);
+		  lblSenha.setLayoutY(230);
 		  lblSenha.setPrefWidth(150);
 		  lblSenha.setStyle("-fx-text-alignment: center; -fx-text-fill: #6F9580; -fx-font-weight: bold; -fx-font-size: 18px;");
 
 		  tfSenha.setLayoutX(250.0);
-		  tfSenha.setLayoutY(289.0);
+		  tfSenha.setLayoutY(265.5);
 		  tfSenha.setMinSize(300.0, 30.0);
 		  tfSenha.setStyle("-fx-border-color: #000000;");
 
@@ -63,7 +63,7 @@ public class LoginBoundary extends CommandProducer implements StrategyBoundary {
 			  identificarPerfilUser(control.login());
 		  });
 		  btnLogin.setLayoutX(250.0);
-		  btnLogin.setLayoutY(356.0);
+		  btnLogin.setLayoutY(320.0);
 		  btnLogin.setMinSize(300.0, 30.0);
 		  btnLogin.setStyle("-fx-background-color: #6F9580; -fx-text-fill: white; -fx-cursor: hand;");
 

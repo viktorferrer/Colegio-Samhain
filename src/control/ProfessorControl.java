@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.bean.Disciplina;
 import model.bean.Professor;
 import model.dao.ProfessorDAO;
 import model.dao.ProfessorDAOImpl;
