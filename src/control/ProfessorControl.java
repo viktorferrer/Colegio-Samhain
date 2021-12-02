@@ -75,7 +75,6 @@ public class ProfessorControl {
     }
 
     public void atualizar() {
-        System.out.println(getProf().getNome() + idProperty().getValue());
         pDao.atualizar(idProperty().getValue(), getProf());
         limparCampos();
         listar();

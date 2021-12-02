@@ -2,11 +2,15 @@ package boundary;
 
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import control.DisciplinaControl;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,7 +26,7 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
     TextField tfPeriodo = new TextField();
     TextField tfModalidade = new TextField();
     TextField tfId = new TextField();
-    TextField tfProfId = new TextField();
+    ComboBox <String> cbProfId = new ComboBox<>();
 
     Label lbDescricao = new Label("Descrição:");
     Label lbPeriodo = new Label("Periodo:");
@@ -88,15 +92,16 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         lbProfId.setPrefHeight(25);
         lbProfId.setPrefWidth(120);
 
-        tfProfId.setLayoutX(20);
-        tfProfId.setLayoutY(96);
-        tfProfId.setPrefHeight(25);
-        tfProfId.setPrefWidth(224);
+        cbProfId.setLayoutX(20);
+        cbProfId.setLayoutY(96);
+        cbProfId.setPrefHeight(25);
+        cbProfId.setPrefWidth(224);
+        cbProfId.setItems(control.getProfNomes());
 
         lbModalidade.setLayoutX(288);
         lbModalidade.setLayoutY(75);
         lbModalidade.setPrefHeight(25);
-        lbModalidade.setPrefWidth(60);
+        lbModalidade.setPrefWidth(100);
 
         tfModalidade.setLayoutX(288);
         tfModalidade.setLayoutY(96);
@@ -128,7 +133,7 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
 
         btnRemover.setOnAction((e) -> {
             if (tfId.getText() == null || tfId.getText() == "") {
-                System.out.println("Selecione a que deseja remover.");
+                JOptionPane.showMessageDialog(null, "Selecione a disciplina que deseja remover.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Confirmar a remoção da disciplina?", ButtonType.YES,
                         ButtonType.CANCEL);
@@ -165,7 +170,7 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
                 tfPeriodo,
                 tfModalidade,
                 tfId,
-                tfProfId,
+                cbProfId,
                 lbDescricao,
                 lbPeriodo,
                 lbModalidade,
@@ -194,7 +199,10 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         colModalidade.setCellValueFactory(new PropertyValueFactory<Disciplina, String>("modalidade"));
 
         TableColumn<Disciplina, String> colProfessor = new TableColumn<>("Professor");
-        colProfessor.setCellValueFactory(new PropertyValueFactory<Disciplina, String>("profId"));
+        colProfessor.setCellValueFactory((p) -> {
+            String profId = p.getValue().getProfId().toString();
+            return new ReadOnlyStringWrapper(control.idParaNome(profId));
+        });
 
         tabela.getColumns().addAll(colDescricao, colPeriodo, colModalidade, colProfessor);
 
@@ -220,7 +228,7 @@ public class DisciplinaBoundary extends CommandProducer implements StrategyBound
         Bindings.bindBidirectional(tfPeriodo.textProperty(), control.periodoProperty());
         Bindings.bindBidirectional(tfModalidade.textProperty(), control.modalidadeProperty());
         Bindings.bindBidirectional(tfId.textProperty(), control.idProperty());
-        Bindings.bindBidirectional(tfProfId.textProperty(), control.profIdProperty());
+        Bindings.bindBidirectional(cbProfId.valueProperty(), control.profIdProperty());
     }
 
 }

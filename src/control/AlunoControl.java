@@ -1,5 +1,7 @@
 package control;
 
+import javax.swing.JOptionPane;
+
 import org.bson.types.ObjectId;
 
 import javafx.beans.property.DoubleProperty;
@@ -23,7 +25,7 @@ public class AlunoControl {
     StringProperty id = new SimpleStringProperty();
     StringProperty periodo = new SimpleStringProperty();
     StringProperty turma = new SimpleStringProperty();
-    DoubleProperty nota = new SimpleDoubleProperty();
+    StringProperty status = new SimpleStringProperty();
 
     public StringProperty nomeProperty() {
         return nome;
@@ -45,8 +47,8 @@ public class AlunoControl {
         return turma;
     }
 
-    public DoubleProperty notaProperty() {
-        return nota;
+    public StringProperty statusProperty() {
+        return status;
     }
 
     public ObservableList<Aluno> getListAlunos() {
@@ -58,7 +60,7 @@ public class AlunoControl {
         a.setMatricula(matriculaProperty().getValue());
         a.setTurma(turmaProperty().getValue());
         a.setPeriodo(periodoProperty().getValue());
-        a.setNota(notaProperty().getValue());
+        a.setStatus(statusProperty().getValue());
         String stringId = idProperty().getValue();
         if (stringId == null || stringId.isBlank()) {
             a.setId(new ObjectId());
@@ -74,7 +76,7 @@ public class AlunoControl {
         matricula.set(a.getMatricula());
         turma.set(a.getTurma());
         periodo.set(a.getPeriodo());
-        nota.set(a.getNota());
+        status.set(a.getStatus());
     }
 
     public void gravar() {
@@ -83,7 +85,7 @@ public class AlunoControl {
             aDao.adicionar(a);
             limparCampos();
         } else {
-            System.out.println("Matrícula indisponível. Por favor, informe outro registro.");
+            JOptionPane.showMessageDialog(null, "Matrícula indisponível.\nPor favor, escolha outro registro", "ERRO", JOptionPane.ERROR_MESSAGE);
             matricula.set("");
         }
         listar();
@@ -114,7 +116,7 @@ public class AlunoControl {
     public void limparCampos() {
         nome.set("");
         id.set("");
-        nota.set(0);
+        status.set("");
         matricula.set("");
         turma.set("");
         periodo.set("");

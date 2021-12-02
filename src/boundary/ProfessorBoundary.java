@@ -2,6 +2,8 @@ package boundary;
 
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import control.ProfessorControl;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -72,7 +74,21 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
         cbEspec.setLayoutY(43);
         cbEspec.setPrefHeight(25);
         cbEspec.setPrefWidth(224);
-        ObservableList<String> espec = FXCollections.observableArrayList("1", "2");
+        ObservableList<String> espec = FXCollections.observableArrayList("Administração Geral",
+                "Algoritmos e Lógica de Programação",
+                "Arquitetura e Organização de Computadores",
+                "Banco de dados",
+                "Contabilidade",
+                "Engenharia de Software",
+                "Estruturas de Dados",
+                "Inglês",
+                "Linguagem de Programação",
+                "Matemática Discreta",
+                "Programação Orientada a Objetos",
+                "Redes de computadores",
+                "Segurança da Informação",
+                "Sistemas de Informação",
+                "Sistemas Operacionais");
         cbEspec.setItems(espec);
 
         lbId.setLayoutX(556);
@@ -132,9 +148,9 @@ public class ProfessorBoundary extends CommandProducer implements StrategyBounda
 
         btnRemover.setOnAction((e) -> {
             if (tfId.getText() == null || tfId.getText() == "") {
-                System.out.println("Selecione o aluno que deseja remover.");
+                JOptionPane.showMessageDialog(null, "Selecione o professor que deseja remover.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Confirmar a remoção do aluno?", ButtonType.YES,
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Confirmar a remoção do professor?", ButtonType.YES,
                         ButtonType.CANCEL);
                 Optional<ButtonType> click = alert.showAndWait();
                 if (click.isPresent() && click.get().equals(ButtonType.YES)) {

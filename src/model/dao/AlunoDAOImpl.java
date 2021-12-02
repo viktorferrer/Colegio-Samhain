@@ -27,7 +27,7 @@ public class AlunoDAOImpl implements AlunoDAO {
         doc.append("nome", aluno.getNome());
         doc.append("turma", aluno.getTurma());
         doc.append("periodo", aluno.getPeriodo());
-        doc.append("nota", aluno.getNota());
+        doc.append("status", aluno.getStatus());
         doc.append("matricula", aluno.getMatricula());
         doc.append("_id", aluno.getId());
 
@@ -38,7 +38,7 @@ public class AlunoDAOImpl implements AlunoDAO {
         Aluno a = new Aluno(doc.getString("nome"));
         a.setTurma(doc.getString("turma"));
         a.setPeriodo(doc.getString("periodo"));
-        a.setNota(doc.getDouble("nota"));
+        a.setStatus(doc.getString("status"));
         a.setMatricula(doc.getString("matricula"));
         a.setId(doc.getObjectId("_id"));
         return a;

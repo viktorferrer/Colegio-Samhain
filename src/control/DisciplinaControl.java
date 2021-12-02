@@ -1,18 +1,27 @@
 package control;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.bean.Disciplina;
+import model.bean.Professor;
 import model.dao.DisciplinaDAO;
 import model.dao.DisciplinaDAOImpl;
+import model.dao.ProfessorDAO;
+import model.dao.ProfessorDAOImpl;
 import utilities.Utils;
 
 public class DisciplinaControl {
 
     Utils ut = new Utils();
     DisciplinaDAO dao = new DisciplinaDAOImpl();
+    ProfessorDAO pDao = new ProfessorDAOImpl();
+
     ObservableList<Disciplina> listDisc = FXCollections.observableArrayList();
 
     StringProperty descricao = new SimpleStringProperty();
@@ -50,8 +59,7 @@ public class DisciplinaControl {
         d.setPeriodo(periodoProperty().getValue());
         d.setModalidade(modalidadeProperty().getValue());
         d.setId(ut.getId(idProperty().getValue()));
-        d.setProfId(ut.getId(profIdProperty().getValue()));
-
+        d.setProfId(new ObjectId(nomeParaId(profIdProperty().getValue())));
         return d;
     }
 
@@ -60,13 +68,13 @@ public class DisciplinaControl {
         periodo.set(d.getPeriodo());
         modalidade.set(d.getModalidade());
         id.set(d.getId().toString());
-        profId.set(d.getProfId().toString());
+        profId.set(idParaNome(d.getProfId().toString()));
     }
 
     public void gravar() {
         Disciplina d = getDisc();
         dao.adicionar(d);
-        System.out.println("Disciplina adicionada!");
+
         listar();
         limparCampos();
     }
@@ -99,6 +107,40 @@ public class DisciplinaControl {
         modalidade.set("");
         id.set("");
         profId.set("");
+
     }
+
+    public ObservableList<String> getProfNomes() {
+        ObservableList<String> nomesProf = FXCollections.observableArrayList();
+        List<Professor> listaProfessor = pDao.mostrarProfs();
+        for (Professor p : listaProfessor) {
+            nomesProf.add(p.getNome());
+        }
+        return nomesProf;
+    }
+
+    public String nomeParaId(String nome) {
+        List<Professor> listaProfessor = pDao.mostrarProfs();
+        for (Professor p : listaProfessor) {
+            if (p.getNome().equals(nome)) {
+                return p.getId().toString();
+            }
+        }
+        return null;
+    }
+
+    public String idParaNome(String id) {
+        List<Professor> listaProfessor = pDao.mostrarProfs();
+        for (Professor p : listaProfessor) {
+            if (p.getId().toString().equals(id)) {
+                return p.getNome();
+            }
+        }
+        return null;
+    }
+
+    // metodo para retornar todos os nomes de prof
+    // transformar o nome em id
+    // transformar ID no nome
 
 }

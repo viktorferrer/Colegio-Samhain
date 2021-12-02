@@ -2,6 +2,8 @@ package boundary;
 
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import control.AlunoControl;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Alert;
@@ -14,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.util.converter.NumberStringConverter;
 import model.bean.Aluno;
 
 public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
@@ -24,14 +25,14 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
     TextField tfTurma = new TextField();
     TextField tfPeriodo = new TextField();
     TextField tfMatricula = new TextField();
-    TextField tfNota = new TextField();
+    TextField tfStatus = new TextField();
 
     Label lbId = new Label("ID: ");
     Label lbNome = new Label("Nome: ");
     Label lbTurma = new Label("Turma: ");
     Label lbPeriodo = new Label("Periodo: ");
     Label lbMatricula = new Label("Matrícula: ");
-    Label lbNota = new Label("Nota: ");
+    Label lbStatus = new Label("Status: ");
 
     Button btnGravar = new Button("Gravar");
     Button btnAtualizar = new Button("Atualizar");
@@ -105,15 +106,15 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
         tfTurma.setPrefHeight(25);
         tfTurma.setPrefWidth(224);
 
-        lbNota.setLayoutX(556);
-        lbNota.setLayoutY(75);
-        lbNota.setPrefHeight(25);
-        lbNota.setPrefWidth(70);
+        lbStatus.setLayoutX(556);
+        lbStatus.setLayoutY(75);
+        lbStatus.setPrefHeight(25);
+        lbStatus.setPrefWidth(70);
 
-        tfNota.setLayoutX(556);
-        tfNota.setLayoutY(96);
-        tfNota.setPrefHeight(25);
-        tfNota.setPrefWidth(224);
+        tfStatus.setLayoutX(556);
+        tfStatus.setLayoutY(96);
+        tfStatus.setPrefHeight(25);
+        tfStatus.setPrefWidth(224);
 
         btnGravar.setLayoutX(82);
         btnGravar.setLayoutY(152);
@@ -140,7 +141,7 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
 
         btnRemover.setOnAction((e) -> {
             if (tfId.getText() == null || tfId.getText() == "") {
-                System.out.println("Selecione o aluno que deseja remover.");
+                JOptionPane.showMessageDialog(null, "Selecione o aluno que deseja remover.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Confirmar a remoção do aluno?", ButtonType.YES,
                         ButtonType.CANCEL);
@@ -178,13 +179,13 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
                 tfTurma,
                 tfPeriodo,
                 tfMatricula,
-                tfNota,
+                tfStatus,
                 lbId,
                 lbNome,
                 lbTurma,
                 lbPeriodo,
                 lbMatricula,
-                lbNota, btnGravar,
+                lbStatus, btnGravar,
                 btnAtualizar,
                 btnBuscar,
                 btnRemover,
@@ -202,16 +203,16 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
         TableColumn<Aluno, String> colMatricula = new TableColumn<>("Matricula");
         colMatricula.setCellValueFactory(new PropertyValueFactory<Aluno, String>("matricula"));
 
-        TableColumn<Aluno, Double> colNota = new TableColumn<>("Nota");
-        colNota.setCellValueFactory(new PropertyValueFactory<Aluno, Double>("nota"));
+        TableColumn<Aluno, Double> colStatus = new TableColumn<>("Status");
+        colStatus.setCellValueFactory(new PropertyValueFactory<Aluno, Double>("status"));
 
         TableColumn<Aluno, String> colPeriodo = new TableColumn<>("Período");
-        colPeriodo.setCellValueFactory(new PropertyValueFactory<Aluno, String>("nota"));
+        colPeriodo.setCellValueFactory(new PropertyValueFactory<Aluno, String>("periodo"));
 
         TableColumn<Aluno, String> colTurma = new TableColumn<>("Turma");
         colTurma.setCellValueFactory(new PropertyValueFactory<Aluno, String>("turma"));
 
-        tabela.getColumns().addAll(colNome, colMatricula, colNota, colPeriodo, colTurma);
+        tabela.getColumns().addAll(colNome, colMatricula, colStatus, colPeriodo, colTurma);
         
         tabela.setItems(control.getListAlunos());
 
@@ -236,7 +237,7 @@ public class AlunoBoundary extends CommandProducer implements StrategyBoundary {
         Bindings.bindBidirectional(tfId.textProperty(), control.idProperty());
         Bindings.bindBidirectional(tfPeriodo.textProperty(), control.periodoProperty());
         Bindings.bindBidirectional(tfTurma.textProperty(), control.turmaProperty());
-        Bindings.bindBidirectional(tfNota.textProperty(), control.notaProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(tfStatus.textProperty(), control.statusProperty());
     };
 
 }

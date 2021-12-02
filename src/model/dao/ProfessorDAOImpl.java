@@ -59,7 +59,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     public void atualizar(String id, Professor professor) {
         Document doc = novoDocumento(professor);
         BasicDBObject update = new BasicDBObject("$set", doc);
-        System.out.println(update);
         getCollection();
         prof.updateOne(new BasicDBObject("_id", new ObjectId(id)), update);
     }
@@ -110,7 +109,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         if (parametro == null) {
             return null;
         }
-
         return parametro.getString("nome");
     }
 

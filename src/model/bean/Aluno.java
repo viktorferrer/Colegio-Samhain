@@ -6,7 +6,7 @@ public class Aluno {
 
     ObjectId id;
     String nome, turma, periodo, matricula;
-    Double nota;
+    String status;
 
     public Aluno(String nome) {
         this.nome = nome;
@@ -36,12 +36,12 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public Double getNota() {
-        return nota;
+    public String getStatus() {
+        return status;
     }
 
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getTurma() {

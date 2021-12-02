@@ -15,7 +15,6 @@ public class LoginControl {
     public int login() {
         String user = userProperty().getValue();
         String senha = senhaProperty().getValue();
-        System.out.println(user + senha);
         return uDao.login(user, senha);
     }
 
